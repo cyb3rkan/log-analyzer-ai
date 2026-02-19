@@ -1,0 +1,94 @@
+# ============================================================
+# Log Analyzer AI - Örnek Konfigürasyon
+# Kopyalayın: cp config.example.yaml config.yaml
+# ============================================================
+
+# Log Kaynakları
+log_sources:
+  - name: nginx
+    path: /var/log/nginx/access.log
+    format: combined
+    watch: true
+
+  - name: apache
+    path: /var/log/apache2/access.log
+    format: combined
+    watch: true
+
+  - name: syslog
+    path: /var/log/syslog
+    format: syslog
+    watch: false
+
+# Tespit Ayarları
+detection:
+  brute_force:
+    enabled: true
+    threshold: 100        # dakikada maksimum istek
+    window: 60            # saniye
+
+  ddos:
+    enabled: true
+    threshold: 1000       # dakikada maksimum istek
+    window: 60
+
+  sql_injection:
+    enabled: true
+    use_ai: true          # AI destekli tespit
+
+  path_traversal:
+    enabled: true
+
+  xss:
+    enabled: true
+
+  port_scan:
+    enabled: true
+    threshold: 20         # farklı port sayısı
+    window: 60
+
+# Müdahale Aksiyonları
+response:
+  auto_block:
+    enabled: false        # Dikkat: production'da test edin!
+    method: iptables      # iptables, firewalld veya api
+    duration: 3600        # saniye (0 = kalıcı)
+
+  alerts:
+    slack:
+      enabled: false
+      webhook_url: "${SLACK_WEBHOOK}"
+    telegram:
+      enabled: false
+      bot_token: "${TELEGRAM_TOKEN}"
+      chat_id: "${TELEGRAM_CHAT_ID}"
+
+# AI Ayarları
+ai:
+  provider: openai
+  model: gpt-4
+  api_key: "${OPENAI_API_KEY}"
+  analyze_threshold: medium   # low, medium, high
+
+# Beyaz Liste
+whitelist:
+  ips:
+    - 127.0.0.1
+    - 10.0.0.0/8
+    - 192.168.0.0/16
+  user_agents:
+    - GoogleBot
+    - BingBot
+    - Googlebot-Image
+
+# Dashboard
+dashboard:
+  host: 0.0.0.0
+  port: 8080
+  debug: false
+
+# Raporlama
+reporting:
+  output_dir: ./reports
+  daily: true
+  weekly: true

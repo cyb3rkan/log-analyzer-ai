@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🛡️ Log Analyzer AI - Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Consolas, monospace;
+      background: #0d1117;
+      color: #c9d1d9;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 { font-size: 1.2rem; color: #58a6ff; }
+    #live-indicator {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; color: #3fb950;
+    }
+    #live-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #3fb950;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .container { padding: 24px; max-width: 1400px; margin: 0 auto; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-card .label { font-size: 0.75rem; color: #8b949e; margin-bottom: 8px; }
+    .stat-card .value { font-size: 2rem; font-weight: 700; color: #58a6ff; }
+    .stat-card.danger .value  { color: #f85149; }
+    .stat-card.warning .value { color: #d29922; }
+    .stat-card.success .value { color: #3fb950; }
+
+    .panel {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid #30363d;
+      font-size: 0.9rem;
+      color: #8b949e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #threat-feed {
+      max-height: 480px;
+      overflow-y: auto;
+    }
+    .threat-row {
+      padding: 12px 20px;
+      border-bottom: 1px solid #21262d;
+      display: grid;
+      grid-template-columns: 90px 120px 140px 1fr 100px;
+      gap: 12px;
+      align-items: center;
+      font-size: 0.82rem;
+      animation: slide-in .3s ease;
+    }
+    .threat-row:hover { background: #1c2128; }
+    @keyframes slide-in { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .badge-CRITICAL { background: #490202; color: #f85149; border: 1px solid #f85149; }
+    .badge-HIGH     { background: #3d1f00; color: #d29922; border: 1px solid #d29922; }
+    .badge-MEDIUM   { background: #2d2500; color: #e3b341; border: 1px solid #e3b341; }
+    .badge-LOW      { background: #032116; color: #3fb950; border: 1px solid #3fb950; }
+
+    .ip  { font-family: monospace; color: #79c0ff; }
+    .target { color: #a5d6ff; font-size: 0.78rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .time-col { color: #8b949e; font-size: 0.75rem; }
+
+    #no-threats {
+      text-align: center;
+      padding: 60px 20px;
+      color: #8b949e;
+      font-size: 0.9rem;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 768px) { .section-grid { grid-template-columns: 1fr; } }
+
+    #top-ips-list { padding: 0; }
+    .ip-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid #21262d;
+      font-size: 0.83rem;
+    }
+    .ip-item:hover { background: #1c2128; }
+    .ip-bar-wrap { flex: 1; margin: 0 12px; height: 6px; background: #21262d; border-radius: 3px; }
+    .ip-bar { height: 100%; background: #58a6ff; border-radius: 3px; transition: width .4s; }
+    .ip-count { color: #8b949e; min-width: 40px; text-align: right; }
+
+    #type-list { padding: 0; }
+    .type-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 20px;
+      border-bottom: 1px solid #21262d;
+      font-size: 0.83rem;
+    }
+    .type-item:hover { background: #1c2128; }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #484f58;
+      font-size: 0.75rem;
+      border-top: 1px solid #21262d;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>🛡️ Log Analyzer AI &mdash; Live Dashboard</h1>
+  <div id="live-indicator">
+    <div id="live-dot"></div>
+    <span id="live-label">LIVE</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- İstatistik kartları -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="label">📊 TOPLAM İSTEK</div>
+      <div class="value" id="stat-requests">0</div>
+    </div>
+    <div class="stat-card danger">
+      <div class="label">🚨 TESPİT EDİLEN</div>
+      <div class="value" id="stat-threats">0</div>
+    </div>
+    <div class="stat-card warning">
+      <div class="label">🔒 BLOKLU IP</div>
+      <div class="value" id="stat-blocked">0</div>
+    </div>
+    <div class="stat-card success">
+      <div class="label">🌐 BENZERSİZ IP</div>
+      <div class="value" id="stat-ips">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">⏱️ ÇALIŞMA SÜRESİ</div>
+      <div class="value" id="stat-uptime">0s</div>
+    </div>
+  </div>
+
+  <!-- Canlı tehdit akışı -->
+  <div class="panel">
+    <div class="panel-header">🔴 Canlı Tehdit Akışı</div>
+    <div id="threat-feed">
+      <div id="no-threats">Henüz tehdit tespit edilmedi. Sistem izlemede...</div>
+    </div>
+  </div>
+
+  <!-- Alt panel grid -->
+  <div class="section-grid">
+
+    <!-- Top saldırgan IP'ler -->
+    <div class="panel">
+      <div class="panel-header">🏴 En Çok Saldıran IP'ler</div>
+      <div id="top-ips-list">
+        <div style="padding:30px;text-align:center;color:#8b949e;font-size:0.85rem;">Veri bekleniyor...</div>
+      </div>
+    </div>
+
+    <!-- Tehdit türleri -->
+    <div class="panel">
+      <div class="panel-header">📊 Tehdit Türleri</div>
+      <div id="type-list">
+        <div style="padding:30px;text-align:center;color:#8b949e;font-size:0.85rem;">Veri bekleniyor...</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>Log Analyzer AI &bull; Powered by Python &bull; &copy; 2024</footer>
+
+<script>
+  const REFRESH_INTERVAL = 5000;
+  const MAX_FEED_ROWS = 100;
+  const threatTypes = {};
+
+  function formatUptime(seconds) {
+    if (seconds < 60) return Math.floor(seconds) + 's';
+    if (seconds < 3600) return Math.floor(seconds / 60) + 'm ' + Math.floor(seconds % 60) + 's';
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    return h + 'h ' + m + 'm';
+  }
+
+  async function fetchStats() {
+    try {
+      const res = await fetch('/api/stats');
+      const data = await res.json();
+      document.getElementById('stat-requests').textContent = (data.total_requests || 0).toLocaleString();
+      document.getElementById('stat-threats').textContent = (data.total_threats || 0).toLocaleString();
+      document.getElementById('stat-blocked').textContent = (data.blocked_ips || 0).toLocaleString();
+      document.getElementById('stat-ips').textContent = (data.unique_ips || 0).toLocaleString();
+      document.getElementById('stat-uptime').textContent = formatUptime(data.uptime_seconds || 0);
+    } catch(e) {}
+  }
+
+  async function fetchThreats() {
+    try {
+      const res = await fetch('/api/threats?limit=50');
+      const data = await res.json();
+      const feed = document.getElementById('threat-feed');
+      const noThreats = document.getElementById('no-threats');
+
+      if (!data.threats || data.threats.length === 0) return;
+      if (noThreats) noThreats.remove();
+
+      // Sadece yeni gelenleri ekle
+      const existingCount = feed.querySelectorAll('.threat-row').length;
+      const newThreats = data.threats.slice(existingCount);
+
+      newThreats.forEach(threat => {
+        const row = document.createElement('div');
+        row.className = 'threat-row';
+        const ts = new Date(threat.timestamp);
+        const timeStr = ts.toLocaleTimeString('tr-TR');
+        row.innerHTML = `
+          <span class="time-col">${timeStr}</span>
+          <span><span class="badge badge-${threat.severity}">${threat.severity}</span></span>
+          <span style="color:#e3b341;font-size:0.78rem">${threat.threat_type}</span>
+          <span class="ip">${threat.source_ip}</span>
+          <span class="target" title="${threat.target}">${threat.target || '-'}</span>
+        `;
+        feed.insertBefore(row, feed.firstChild);
+
+        // Tip sayacı güncelle
+        threatTypes[threat.threat_type] = (threatTypes[threat.threat_type] || 0) + 1;
+      });
+
+      // Eski satırları temizle
+      const rows = feed.querySelectorAll('.threat-row');
+      if (rows.length > MAX_FEED_ROWS) {
+        for (let i = MAX_FEED_ROWS; i < rows.length; i++) rows[i].remove();
+      }
+    } catch(e) {}
+  }
+
+  async function fetchTopIPs() {
+    try {
+      const res = await fetch('/api/top-ips');
+      const data = await res.json();
+      const container = document.getElementById('top-ips-list');
+      if (!data.top_ips || data.top_ips.length === 0) return;
+
+      const maxCount = data.top_ips[0]?.count || 1;
+      container.innerHTML = data.top_ips.slice(0, 10).map((item, i) => `
+        <div class="ip-item">
+          <span style="color:#8b949e;min-width:24px">${i+1}</span>
+          <span class="ip">${item.ip}</span>
+          <div class="ip-bar-wrap"><div class="ip-bar" style="width:${Math.round(item.count/maxCount*100)}%"></div></div>
+          <span class="ip-count">${item.count}</span>
+        </div>
+      `).join('');
+    } catch(e) {}
+  }
+
+  function renderTypeList() {
+    const container = document.getElementById('type-list');
+    const entries = Object.entries(threatTypes).sort((a,b) => b[1]-a[1]);
+    if (entries.length === 0) return;
+    container.innerHTML = entries.map(([type, count]) => `
+      <div class="type-item">
+        <span style="color:#e3b341">${type}</span>
+        <span style="color:#8b949e">${count}</span>
+      </div>
+    `).join('');
+  }
+
+  async function refresh() {
+    await fetchStats();
+    await fetchThreats();
+    await fetchTopIPs();
+    renderTypeList();
+  }
+
+  // İlk yükleme ve periyodik güncelleme
+  refresh();
+  setInterval(refresh, REFRESH_INTERVAL);
+</script>
+</body>
+</html>
