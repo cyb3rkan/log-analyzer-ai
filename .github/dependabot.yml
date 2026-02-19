@@ -1,0 +1,22 @@
+version: 2
+
+updates:
+  # Python dependencies (requirements.txt / pip)
+  - package-ecosystem: "pip"
+    directory: "/"   # requirements.txt kök dizinde
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    allow:
+      - dependency-type: "all"
+    commit-message:
+      prefix: "deps"
+    labels:
+      - "security"
+      - "dependencies"
+
+  # GitHub Actions (CI/CD varsa)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
