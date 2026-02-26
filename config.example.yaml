@@ -1,0 +1,55 @@
+# Log Analyzer AI - Configuration
+# Copy to config.yaml: cp config.example.yaml config.yaml
+
+log_sources:
+  - name: nginx
+    path: /var/log/nginx/access.log
+    format: combined
+    watch: true
+
+detection:
+  brute_force:
+    enabled: true
+    threshold: 5
+    window: 60
+  sql_injection:
+    enabled: true
+    use_ai: false          # Set true to also use AI classification
+  path_traversal:
+    enabled: true
+  xss:
+    enabled: true
+  suspicious_ua:
+    enabled: true
+
+response:
+  auto_block:
+    enabled: false
+    method: iptables       # iptables or ufw
+    duration: 3600
+  alerts:
+    slack:
+      enabled: false
+      webhook_url: "${SLACK_WEBHOOK}"
+
+ai:
+  provider: openai         # openai
+  model: gpt-4o-mini       # recommended: gpt-4o-mini (cheap), gpt-4o (detailed)
+  api_key: "${OPENAI_API_KEY}"
+
+# WARNING: Whitelisted IPs/UAs are NEVER flagged as threats.
+# Do NOT add broad ranges unless you trust ALL traffic from them.
+whitelist:
+  ips:
+    - 127.0.0.1
+  user_agents:
+    - GoogleBot
+    - Bingbot
+
+dashboard:
+  host: 0.0.0.0
+  port: 8080
+
+reporting:
+  output_dir: ./reports
+  daily: true
