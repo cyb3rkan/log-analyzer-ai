@@ -358,8 +358,8 @@ pytest tests/ -v
 - [Sorun Giderme](docs/TROUBLESHOOT.md) — Sık karşılaşılan hatalar
 
 ## 📝 Lisans
-
 MIT License
+
 
 ├── models/
 │   ├── anomaly_detector.py
@@ -372,6 +372,7 @@ MIT License
 ├── config.example.yaml
 ├── requirements.txt
 └── README.md
+
 ```
 
 ---
