@@ -1,6 +1,5 @@
 # 🛡️ Log Analyzer AI
 
-<<<<<<< HEAD
 AI destekli güvenlik log analiz ve tehdit tespit sistemi.
 
 Web sunucu loglarını gerçek zamanlı analiz eder, saldırı girişimlerini tespit eder ve raporlar.
@@ -76,7 +75,7 @@ python log_analyzer.py watch --file /var/log/nginx/access.log
 # Dashboard (opsiyonel: önceden analiz)
 python log_analyzer.py dashboard --port 8080 --file access.log
 ```
-=======
+
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-In_Development-yellow?style=for-the-badge)
@@ -304,13 +303,11 @@ whitelist:
 ```
 
 ---
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
 
 ## 📁 Proje Yapısı
 
 ```
 log-analyzer-ai/
-<<<<<<< HEAD
 ├── log_analyzer.py           # CLI giriş noktası
 ├── config.example.yaml       # Örnek ayar dosyası
 ├── .env.example              # Ortam değişkenleri şablonu
@@ -321,7 +318,6 @@ log-analyzer-ai/
 │   ├── reporter.py           # Rapor oluşturma (JSON/TXT)
 │   ├── responder.py          # Otomatik yanıt (IP ban, Slack)
 │   └── parsers/              # Log format ayrıştırıcılar
-=======
 ├── src/
 │   ├── __init__.py
 │   ├── analyzer.py        # Ana analiz motoru
@@ -329,12 +325,10 @@ log-analyzer-ai/
 │   ├── responder.py       # Otomatik müdahale
 │   ├── reporter.py        # Raporlama
 │   └── parsers/           # Log parser'ları
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
 │       ├── nginx.py
 │       ├── apache.py
 │       ├── syslog.py
 │       └── windows.py
-<<<<<<< HEAD
 ├── models/                   # AI/ML modülleri
 │   ├── classifier.py         # OpenAI sınıflandırıcı
 │   └── anomaly_detector.py   # Isolation Forest
@@ -366,7 +360,6 @@ pytest tests/ -v
 ## 📝 Lisans
 
 MIT License
-=======
 ├── models/                # ML modelleri
 │   ├── anomaly_detector.py
 │   └── classifier.py
@@ -401,7 +394,6 @@ MIT License
 
 Katkılarınızı bekliyoruz! Lütfen önce bir issue açarak neyi değiştirmek istediğinizi tartışalım.
 
-```bash
 # Fork'layın ve klonlayın
 git clone https://github.com/YOUR_USERNAME/log-analyzer-ai.git
 
@@ -438,4 +430,3 @@ Bu araç **yalnızca yetkili sistemlerde ve yasal amaçlarla** kullanılmalıdı
 ---
 
 **⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!**
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
