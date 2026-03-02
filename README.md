@@ -357,6 +357,7 @@ pytest tests/ -v
 - [AI Kullanımı](docs/AI_GUIDE.md) — OpenAI kurulumu
 - [Sorun Giderme](docs/TROUBLESHOOT.md) — Sık karşılaşılan hatalar
 
+```
 ## 📝 Lisans
 MIT License
 
