@@ -360,23 +360,6 @@ pytest tests/ -v
 ## 📝 Lisans
 MIT License
 
-
-├── models/
-
-│   ├── anomaly_detector.py
-│   └── classifier.py
-├── dashboard/
-
-│   ├── app.py
-│   └── templates/
-
-├── tests/
-
-├── log_analyzer.py
-├── config.example.yaml
-├── requirements.txt
-└── README.md
-
 ```
 
 ---
