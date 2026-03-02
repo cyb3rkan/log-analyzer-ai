@@ -361,14 +361,14 @@ pytest tests/ -v
 
 MIT License
 
-├── models/                # ML modelleri
+├── models/
 │   ├── anomaly_detector.py
 │   └── classifier.py
-├── dashboard/             # Web arayüzü
+├── dashboard/
 │   ├── app.py
 │   └── templates/
 ├── tests/
-├── log_analyzer.py        # CLI entry point
+├── log_analyzer.py
 ├── config.example.yaml
 ├── requirements.txt
 └── README.md
