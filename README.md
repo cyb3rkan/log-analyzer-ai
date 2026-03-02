@@ -356,6 +356,7 @@ pytest tests/ -v
 - [Konfigürasyon](docs/CONFIG.md) — Tüm ayarlar
 - [AI Kullanımı](docs/AI_GUIDE.md) — OpenAI kurulumu
 - [Sorun Giderme](docs/TROUBLESHOOT.md) — Sık karşılaşılan hatalar
+```
 
 ---
 
