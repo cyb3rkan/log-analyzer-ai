@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -61,7 +60,6 @@ let tc=new Chart(document.getElementById('typeChart'),{type:'doughnut',data:{lab
 let sc=new Chart(document.getElementById('sevChart'),{type:'bar',data:{labels:['CRITICAL','HIGH','MEDIUM','LOW'],datasets:[{data:[0,0,0,0],backgroundColor:['#ef4444','#f59e0b','#0ea5e9','#10b981']}]},options:{responsive:true,scales:{y:{ticks:{color:'#94a3b8'},grid:{color:'#2a2a5a'}},x:{ticks:{color:'#94a3b8'},grid:{color:'#2a2a5a'}}},plugins:{legend:{display:false}}}});
 async function refresh(){try{const r=await fetch('/api/stats'),d=await r.json();document.getElementById('total-lines').textContent=d.total_lines.toLocaleString();document.getElementById('total-threats').textContent=d.total_threats.toLocaleString();document.getElementById('critical').textContent=(d.severity_breakdown.CRITICAL||0).toLocaleString();document.getElementById('ips').textContent=d.top_ips.length;const t=Object.entries(d.threat_type_breakdown);tc.data.labels=t.map(x=>x[0]);tc.data.datasets[0].data=t.map(x=>x[1]);tc.data.datasets[0].backgroundColor=t.map(x=>C[x[0]]||'#64748b');tc.update();sc.data.datasets[0].data=[d.severity_breakdown.CRITICAL||0,d.severity_breakdown.HIGH||0,d.severity_breakdown.MEDIUM||0,d.severity_breakdown.LOW||0];sc.update();document.getElementById('top-ips').innerHTML=d.top_ips.length?d.top_ips.map(i=>'<div class="ip-row"><span>'+i.ip+'</span><span class="ip-count">'+i.count+' threats</span></div>').join(''):'<div class="loading">No threats yet</div>';const th=d.recent_threats.slice(-20).reverse();document.getElementById('feed').innerHTML=th.length?th.map(t=>'<div class="row"><span class="badge badge-'+t.severity+'">'+t.severity+'</span><span>'+t.threat_type+'</span><span>'+t.source_ip+'</span><span>'+(t.description||'').substring(0,80)+'</span></div>').join(''):'<div class="loading">No threats yet</div>';document.getElementById('status').innerHTML='&#9679; Live';document.getElementById('status').style.color='#10b981';}catch(e){document.getElementById('status').innerHTML='&#9679; Error';document.getElementById('status').style.color='#ef4444';}}
 refresh();setInterval(refresh,5000);
-=======
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
@@ -387,7 +385,6 @@ refresh();setInterval(refresh,5000);
   // İlk yükleme ve periyodik güncelleme
   refresh();
   setInterval(refresh, REFRESH_INTERVAL);
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
 </script>
 </body>
 </html>
