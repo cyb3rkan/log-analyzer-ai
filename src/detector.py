@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """Threat detection engine with rule-based and AI-assisted detection.
 
 Key fix: All request paths are URL-decoded before pattern matching,
@@ -108,7 +107,6 @@ class ThreatEvent:
     confidence: float = 1.0
     raw_log: str = ""
     detection_method: str = "rule-based"
-=======
 """
 Threat Detector - Tehdit Tespit Modülü
 Brute force, DDoS, SQL injection, path traversal, XSS ve port tarama tespiti.
@@ -146,14 +144,12 @@ class ThreatEvent:
     payload: str = ""
     details: dict = field(default_factory=dict)
     raw_entry: Optional[LogEntry] = None
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
-
+    
     def to_dict(self) -> dict:
         return {
             "threat_type": self.threat_type,
             "severity": self.severity,
             "source_ip": self.source_ip,
-<<<<<<< HEAD
             "timestamp": self.timestamp.isoformat() if self.timestamp else None,
             "description": self.description,
             "payload": self.payload,
@@ -263,7 +259,6 @@ class ThreatDetector:
         """Analyze a log entry for threats. Returns list of detected threats."""
         self.stats["total_analyzed"] += 1
 
-=======
             "timestamp": self.timestamp.isoformat(),
             "description": self.description,
             "target": self.target,
@@ -451,13 +446,11 @@ class ThreatDetector:
         Returns:
             Tespit edilen ThreatEvent listesi (boş olabilir)
         """
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
         if self._is_whitelisted(entry):
             return []
 
         threats: list[ThreatEvent] = []
 
-<<<<<<< HEAD
         # URL-decode path + protocol for analysis (handles %27, %20, +, etc.)
         decoded_path = _url_decode(f"{entry.path} {getattr(entry, 'protocol', '')}")
         decoded_referrer = _url_decode(entry.referrer) if entry.referrer else ""
@@ -574,7 +567,6 @@ class ThreatDetector:
     def reset(self) -> None:
         self._bf_counter.reset_all()
         self.stats = {"total_analyzed": 0, "threats_detected": 0, "by_type": Counter()}
-=======
         # Brute Force
         if self._bf_enabled:
             threat = self._check_brute_force(entry)
@@ -738,4 +730,3 @@ class ThreatDetector:
                     raw_entry=entry,
                 )
         return None
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
