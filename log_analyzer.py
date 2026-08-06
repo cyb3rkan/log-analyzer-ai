@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-<<<<<<< HEAD
 """Log Analyzer AI - CLI Entry Point."""
 
 from __future__ import annotations
