@@ -1,22 +1,19 @@
-<<<<<<< HEAD
+
 # Log Analyzer AI - Configuration
 # Copy to config.yaml: cp config.example.yaml config.yaml
 
-=======
 # ============================================================
 # Log Analyzer AI - Örnek Konfigürasyon
 # Kopyalayın: cp config.example.yaml config.yaml
 # ============================================================
 
 # Log Kaynakları
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
 log_sources:
   - name: nginx
     path: /var/log/nginx/access.log
     format: combined
     watch: true
-
-<<<<<<< HEAD
+    
 detection:
   brute_force:
     enabled: true
@@ -37,7 +34,6 @@ response:
     enabled: false
     method: iptables       # iptables or ufw
     duration: 3600
-=======
   - name: apache
     path: /var/log/apache2/access.log
     format: combined
@@ -82,12 +78,10 @@ response:
     method: iptables      # iptables, firewalld veya api
     duration: 3600        # saniye (0 = kalıcı)
 
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
   alerts:
     slack:
       enabled: false
       webhook_url: "${SLACK_WEBHOOK}"
-<<<<<<< HEAD
 
 ai:
   provider: openai         # openai
@@ -110,7 +104,6 @@ dashboard:
 reporting:
   output_dir: ./reports
   daily: true
-=======
     telegram:
       enabled: false
       bot_token: "${TELEGRAM_TOKEN}"
@@ -145,4 +138,3 @@ reporting:
   output_dir: ./reports
   daily: true
   weekly: true
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
