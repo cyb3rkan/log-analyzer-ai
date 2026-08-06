@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """Anomaly detection using Isolation Forest."""
 
 from __future__ import annotations
@@ -7,7 +6,6 @@ import logging
 import pickle
 from pathlib import Path
 from typing import List
-=======
 """
 Anomaly Detector - ML Tabanlı Anomali Tespiti
 Isolation Forest algoritması kullanarak anormal trafik kalıplarını tespit eder.
@@ -16,13 +14,11 @@ import logging
 import pickle
 from pathlib import Path
 from typing import Optional
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
 
 import numpy as np
 
 logger = logging.getLogger(__name__)
 
-<<<<<<< HEAD
 
 class AnomalyDetector:
     """Isolation Forest anomaly detector for log traffic."""
@@ -97,7 +93,6 @@ class AnomalyDetector:
             data = pickle.load(f)
         self._model, self._scaler = data["model"], data["scaler"]
         self._is_trained = True
-=======
 # scikit-learn opsiyonel bağımlılık
 try:
     from sklearn.ensemble import IsolationForest
@@ -291,4 +286,3 @@ class AnomalyDetector:
         except (pickle.UnpicklingError, EOFError, ValueError) as e:
             logger.error(f"Model yükleme hatası: {e}")
             return False
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
