@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """Flask web dashboard for real-time log analysis."""
 
 from __future__ import annotations
