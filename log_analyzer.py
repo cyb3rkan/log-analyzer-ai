@@ -415,7 +415,6 @@ def train(ctx, filepath, log_format, output):
 
 if __name__ == "__main__":
     cli()
-=======
 """
 🛡️ Log Analyzer AI - CLI Entry Point
 AI-Powered Log Analysis & Automated Threat Response System
@@ -775,4 +774,3 @@ def cmd_train(
 
 if __name__ == "__main__":
     cli(obj={})
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
