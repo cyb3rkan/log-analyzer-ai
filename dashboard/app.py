@@ -62,7 +62,6 @@ def api_stats():
 
 def run_dashboard(host: str = "0.0.0.0", port: int = 8080, debug: bool = False) -> None:
     app.run(host=host, port=port, debug=debug, use_reloader=False)
-=======
 """
 Dashboard - Real-time Web Arayüzü
 Flask + SocketIO ile canlı tehdit izleme dashboard'u.
@@ -235,4 +234,3 @@ def update_stats(requests_count: int = 0, blocked: int = 0) -> None:
     """Global istatistikleri günceller."""
     _stats["total_requests"] += requests_count
     _stats["blocked_ips"] += blocked
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
