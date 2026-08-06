@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """Log parsers for various formats."""
 
 from src.parsers.nginx import NginxParser, LogEntry
@@ -26,7 +25,6 @@ __all__ = [
     "LogEntry", "NginxParser", "ApacheParser", "SyslogParser",
     "WindowsEventParser", "get_parser", "PARSER_REGISTRY",
 ]
-=======
 """Log Parser modülleri"""
 from .nginx import NginxParser
 from .apache import ApacheParser
@@ -34,4 +32,3 @@ from .syslog import SyslogParser
 from .windows import WindowsEventParser
 
 __all__ = ["NginxParser", "ApacheParser", "SyslogParser", "WindowsEventParser"]
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
