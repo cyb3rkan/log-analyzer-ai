@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """AI-assisted threat classification using OpenAI API.
 
 Supports single-line classification, batch analysis, and SOC-style
@@ -17,19 +16,16 @@ import json
 import logging
 import os
 import re
-=======
 """
 Threat Classifier - AI Destekli Tehdit Sınıflandırıcısı
 OpenAI GPT ile şüpheli log entry'lerini analiz eder.
 """
 import logging
 import os
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
 from typing import Optional
 
 logger = logging.getLogger(__name__)
 
-<<<<<<< HEAD
 # ── Prompts ──────────────────────────────────────────────────────────────────
 
 SINGLE_PROMPT = (
@@ -362,7 +358,6 @@ class AIClassifier:
         except Exception as e:
             r["error"] = f"{type(e).__name__}: {e}"
         return r
-=======
 # openai opsiyonel bağımlılık
 try:
     from openai import OpenAI
@@ -485,4 +480,3 @@ class ThreatClassifier:
         except (json.JSONDecodeError, ValueError) as e:
             logger.warning(f"AI yanıtı parse edilemedi: {e} | Content: {content[:200]}")
             return None
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
