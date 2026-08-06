@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """Apache combined/common log format parser."""
 
 from __future__ import annotations
@@ -78,7 +77,6 @@ class ApacheParser:
             "parse_errors": self._parse_errors,
             "success_rate": (self._lines_parsed / total * 100) if total > 0 else 0.0,
         }
-=======
 """
 Apache Access Log Parser
 Combined ve Common Log Format (CLF) destekler.
@@ -164,4 +162,3 @@ class ApacheParser:
                 entry = self.parse_line(line)
                 if entry:
                     yield entry
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
