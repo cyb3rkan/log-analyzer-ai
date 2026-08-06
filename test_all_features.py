@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 #!/usr/bin/env python3
 """Log Analyzer AI - Comprehensive Test Suite."""
 
@@ -291,7 +291,6 @@ def assert_(cond, msg="Assertion failed"):
 
 if __name__ == "__main__":
     sys.exit(main())
-=======
 """
 🧪 KAPSAMLI ENTEGRASYONTESTİ
 Tüm özellikleri end-to-end test eder
@@ -820,4 +819,3 @@ if __name__ == "__main__":
         import traceback
         traceback.print_exc()
         sys.exit(1)
->>>>>>> 68d53f75fadd646719ce98c967c981ab4023b2b0
