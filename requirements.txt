@@ -40,7 +40,7 @@ rich>=13.7.0
 
 # Log Parsing
 apache-log-parser>=1.7.0
-python-dateutil>=2.8.2
+python-dateutil>=2.9.0.post0
 
 # AI / ML
 openai>=1.12.0
