@@ -79,6 +79,8 @@ models/
 
 Model `pickle` formatında kaydedilir. Dosya boyutu genellikle 1-5 MB arasındadır.
 
+> ⚠️ **Güvenlik:** `pickle` dosyaları yüklenirken kod çalıştırabilir. Sadece kendi eğittiğiniz veya güvendiğiniz kaynaktan gelen model dosyalarını yükleyin.
+
 ## Kısıtlamalar
 
 - Model sadece eğitim verisindeki trafik profilini bilir

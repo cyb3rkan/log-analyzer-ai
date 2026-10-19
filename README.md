@@ -12,7 +12,7 @@ Web sunucu loglarını gerçek zamanlı analiz eder, saldırı girişimlerini te
 - **AI Analiz**: OpenAI (GPT-4o) ile gelişmiş tehdit sınıflandırması
 - **Gerçek Zamanlı**: `tail -f` tarzı canlı log izleme
 - **Web Dashboard**: Chart.js ile anlık görselleştirme
-- **Otomatik Yanıt**: IP engelleme (iptables/ufw) ve Slack bildirimleri
+- **Otomatik Yanıt**: IP engelleme kararı (DRY-RUN) ve Slack bildirimleri
 - **ML Anomali**: Isolation Forest ile sıfır-gün tespit
 
 ## 🚀 Hızlı Başlangıç
@@ -99,8 +99,6 @@ AI destekli analiz sayesinde loglar gerçek zamanlı analiz edilir, anormallikle
 |--------|-------|
 | ⏱️ Geleneksel | Saatler/Günler |
 | ⚡ Log Analyzer AI | Gerçek Zamanlı |
-| 📈 Tespit Hızı | %95+ |
-| 🎯 False Positive Azaltma | %70+ |
 
 ---
 
@@ -121,11 +119,9 @@ AI destekli analiz sayesinde loglar gerçek zamanlı analiz edilir, anormallikle
 - Behavior analysis
 
 ### ⚡ Automated Response
-- Otomatik IP bloklama (iptables)
-- Firewall rule oluşturma
-- Alert gönderme (Slack/Telegram)
-- Incident ticket oluşturma
-- Quarantine actions
+- IP bloklama kararı (şu an **DRY-RUN**: engellenecek IP loglanır, sisteme kural yazılmaz)
+- Slack bildirimi
+- _Yol haritası:_ gerçek iptables/firewall entegrasyonu, Telegram, incident ticket
 
 ### 📈 Monitoring & Reporting
 - Real-time dashboard
@@ -138,15 +134,16 @@ AI destekli analiz sayesinde loglar gerçek zamanlı analiz edilir, anormallikle
 
 ## 🔍 Tespit Yetenekleri
 
-| Tehdit Türü | Tespit Yöntemi | Doğruluk |
-|-------------|----------------|----------|
-| Brute Force | Rate limiting + Pattern | %98 |
-| DDoS | Traffic anomaly detection | %95 |
-| SQL Injection | Regex + AI Classification | %97 |
-| Path Traversal | Pattern matching | %99 |
-| XSS Attempts | Payload analysis | %96 |
-| Port Scanning | Connection pattern | %94 |
-| C2 Beaconing | Time-series analysis | %92 |
+| Tehdit Türü | Tespit Yöntemi |
+|-------------|----------------|
+| Brute Force | Kayan pencere + eşik (varsayılan 60 sn'de 5 başarısız deneme) |
+| SQL Injection | URL decode + regex, opsiyonel AI sınıflandırma |
+| Path Traversal | Pattern matching |
+| XSS Attempts | Payload analizi |
+| Şüpheli User-Agent | Bilinen tarayıcı araçları (sqlmap, nikto, masscan, wpscan …) |
+| Anomali | Isolation Forest (eğitilmiş model ile) |
+
+> Not: Tespit oranları için henüz etiketli bir veri setiyle ölçüm yapılmadı; bu yüzden doğruluk yüzdesi verilmiyor.
 
 ---
 
