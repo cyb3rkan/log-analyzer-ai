@@ -11,9 +11,9 @@ from typing import Generator, Optional
 NGINX_COMBINED_PATTERN = re.compile(
     r'(?P<ip>\S+)\s+\S+\s+\S+\s+'
     r'\[(?P<timestamp>[^\]]+)\]\s+'
-    r'"(?P<method>\S+)\s+(?P<path>\S+)\s*(?P<protocol>[^\"]*)"\s+'
+    r'"(?P<method>\S+)\s+(?P<path>\S+)\s*(?P<protocol>[^"]*)"\s+'
     r'(?P<status>\d{3})\s+(?P<bytes>\d+|-)'
-    r'(?:\s+"(?P<referrer>[^\"]*)"\s+"(?P<user_agent>[^\"]*)")?'
+    r'(?:\s+"(?P<referrer>[^"]*)"\s+"(?P<user_agent>[^"]*)")?'
 )
 
 NGINX_TIMESTAMP_FORMAT = "%d/%b/%Y:%H:%M:%S %z"
